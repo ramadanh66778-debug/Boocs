@@ -1,0 +1,141 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile with role-based access for students and teachers",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "User authentication UID" },
+        "fullName": { "type": "string", "description": "Full display name" },
+        "email": { "type": "string", "description": "Email address" },
+        "role": { "type": "string", "enum": ["student", "teacher", "admin"], "description": "User permission role" },
+        "grade": { "type": "string", "description": "Grade or academic level" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" },
+        "updatedAt": { "type": "string", "description": "Update timestamp" }
+      },
+      "required": ["id", "fullName", "email", "role"]
+    },
+    "Book": {
+      "title": "Book",
+      "description": "Educational book or resource",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Book ID" },
+        "title": { "type": "string", "description": "Book title" },
+        "icon": { "type": "string", "description": "Emoji icon" },
+        "category": { "type": "string", "description": "Subject or topic category" },
+        "grade": { "type": "string", "description": "Target grade level" },
+        "description": { "type": "string", "description": "Short summary" },
+        "url": { "type": "string", "description": "Drive or PDF download link" },
+        "popular": { "type": "number", "description": "Popularity score" },
+        "isNew": { "type": "boolean", "description": "Whether book is new" },
+        "teacherNotes": { "type": "string", "description": "Guidance notes from teachers" },
+        "createdBy": { "type": "string", "description": "Creator UID" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" }
+      },
+      "required": ["id", "title", "category", "url", "createdBy"]
+    },
+    "Evaluation": {
+      "title": "Evaluation",
+      "description": "Weekly homework and evaluations published by teachers",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Evaluation ID" },
+        "subject": { "type": "string", "description": "Subject name" },
+        "icon": { "type": "string", "description": "Subject icon" },
+        "week": { "type": "string", "description": "Week label" },
+        "title": { "type": "string", "description": "Evaluation title" },
+        "url": { "type": "string", "description": "PDF link" },
+        "createdBy": { "type": "string", "description": "Teacher UID" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" }
+      },
+      "required": ["id", "subject", "week", "title", "url", "createdBy"]
+    },
+    "Exam": {
+      "title": "Exam",
+      "description": "Interactive multiple choice quiz or exam",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Exam ID" },
+        "title": { "type": "string", "description": "Exam title" },
+        "subject": { "type": "string", "description": "Exam subject" },
+        "timeLimit": { "type": "number", "description": "Time limit in minutes" },
+        "questions": { "type": "string", "description": "Serialized JSON question list" },
+        "createdBy": { "type": "string", "description": "Teacher UID" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" }
+      },
+      "required": ["id", "title", "subject", "createdBy"]
+    },
+    "Favorite": {
+      "title": "Favorite",
+      "description": "Student bookmarked book",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Composite favorite ID" },
+        "userId": { "type": "string", "description": "Student UID" },
+        "bookId": { "type": "string", "description": "Book ID" },
+        "createdAt": { "type": "string", "description": "Bookmark timestamp" }
+      },
+      "required": ["id", "userId", "bookId"]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "Broadcast notification or update from teachers",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Announcement ID" },
+        "title": { "type": "string", "description": "Notice title" },
+        "content": { "type": "string", "description": "Notice text" },
+        "category": { "type": "string", "description": "Category badge" },
+        "createdBy": { "type": "string", "description": "Teacher UID" },
+        "createdAt": { "type": "string", "description": "Timestamp" }
+      },
+      "required": ["id", "title", "content", "createdBy"]
+    },
+    "SupportTicket": {
+      "title": "SupportTicket",
+      "description": "Student technical support and feedback messages",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Ticket ID" },
+        "name": { "type": "string", "description": "Student full name" },
+        "phone": { "type": "string", "description": "Student phone number" },
+        "message": { "type": "string", "description": "Message text or inquiry" },
+        "category": { "type": "string", "description": "Ticket category" },
+        "status": { "type": "string", "enum": ["جديدة", "تمت المراجعة"], "description": "Resolution status" },
+        "createdAt": { "type": "string", "description": "Submission timestamp" }
+      },
+      "required": ["id", "name", "phone", "message"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profiles for students and teachers"
+    },
+    "/books/{bookId}": {
+      "schema": "Book",
+      "description": "Educational books and PDF guides"
+    },
+    "/evaluations/{evalId}": {
+      "schema": "Evaluation",
+      "description": "Weekly assignments and evaluations"
+    },
+    "/exams/{examId}": {
+      "schema": "Exam",
+      "description": "Interactive exams and tests"
+    },
+    "/favorites/{favId}": {
+      "schema": "Favorite",
+      "description": "Student favorite items"
+    },
+    "/announcements/{announcementId}": {
+      "schema": "Announcement",
+      "description": "Teacher notices and announcements"
+    },
+    "/support_tickets/{ticketId}": {
+      "schema": "SupportTicket",
+      "description": "Support tickets submitted by students"
+    }
+  }
+}

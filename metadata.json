@@ -1,0 +1,6 @@
+{
+  "name": "GitHub Project Assistant",
+  "description": "Import, inspect, and modify GitHub repositories with automated enhancements and code editing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

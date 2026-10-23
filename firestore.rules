@@ -1,0 +1,46 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Books collection - public reading, write managed by admin password in portal
+    match /books/{bookId} {
+      allow read, write: if true;
+    }
+
+    // Weekly Evaluations
+    match /evaluations/{evalId} {
+      allow read, write: if true;
+    }
+
+    // Quizzes and Interactive Exams
+    match /exams/{examId} {
+      allow read, write: if true;
+    }
+
+    // Student Accounts & Profiles (Auth by Phone and Password)
+    match /users/{userId} {
+      allow read, write: if true;
+    }
+
+    // Student Favorites
+    match /favorites/{favId} {
+      allow read, write: if true;
+    }
+
+    // Announcements
+    match /announcements/{announcementId} {
+      allow read, write: if true;
+    }
+
+    // Support Tickets & Student Inquiries
+    match /support_tickets/{ticketId} {
+      allow read, write: if true;
+    }
+
+    // Catch-all deny for unknown collections
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
